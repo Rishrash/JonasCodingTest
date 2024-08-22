@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using BusinessLayer.Model.Interfaces;
@@ -19,37 +20,37 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
         // GET api/<controller>
-        public IEnumerable<CompanyDto> GetAll()
+        public async Task<IEnumerable<CompanyDto>> GetAll()
         {
-            var items = _companyService.GetAllCompanies();
+            var items = await Task.Run(() => _companyService.GetAllCompanies());
             return _mapper.Map<IEnumerable<CompanyDto>>(items);
         }
 
         // GET api/<controller>/5
-        public CompanyDto Get(string companyCode)
+        public async Task<CompanyDto> Get(string companyCode)
         {
-            var item = _companyService.GetCompanyByCode(companyCode);
+            var item = await Task.Run(() => _companyService.GetCompanyByCode(companyCode));
             return _mapper.Map<CompanyDto>(item);
         }
 
         // POST api/<controller>
-        public bool Post([FromBody] CompanyDto companyDto)
+        public async Task<bool> Post([FromBody] CompanyDto companyDto)
         {
             var companyInfo = _mapper.Map<CompanyInfo>(companyDto);
-            return _companyService.SaveCompany(companyInfo);
+            return await Task.Run(() => _companyService.SaveCompany(companyInfo));
         }
 
         // PUT api/<controller>/5
-        public bool Put(string companyCode, [FromBody] CompanyDto companyDto)
+        public async Task<bool> Put(string companyCode, [FromBody] CompanyDto companyDto)
         {
             var companyInfo = _mapper.Map<CompanyInfo>(companyDto);
-            return _companyService.UpdateCompany(companyInfo, companyCode);
+            return await Task.Run(() => _companyService.UpdateCompany(companyInfo, companyCode));
         }
 
         // DELETE api/<controller>/5
-        public bool Delete(string companyCode)
+        public async Task<bool> Delete(string companyCode)
         {
-            return _companyService.DeleteCompany(companyCode);
+            return await Task.Run(() => _companyService.DeleteCompany(companyCode));
         }
     }
 }
