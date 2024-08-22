@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Services
 {
-    internal class EmployeeService : IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IMapper _mapper;
