@@ -15,6 +15,7 @@ namespace DataAccessLayer.Model.Models
         public string EquipmentCompanyCode { get; set; }
         public string Country { get; set; }
         public List<ArSubledger> ArSubledgers { get; set; }
+        public List<Employee> Employees { get; set; }
         public DateTime LastModified { get; set; }
     }
 }
